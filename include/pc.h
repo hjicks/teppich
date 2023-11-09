@@ -1,0 +1,2 @@
+#define COM1 0x3f8
+#define KB 0x60
