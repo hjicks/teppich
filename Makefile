@@ -14,12 +14,15 @@ QFLAGS=-kernel teppich.elf -m 16M -serial stdio
 L=\
 	libc/strlen.o\
 	libc/strcmp.o\
+	libc/memcpy.o\
+	libc/memset.o\
 
 K=\
 	pc/x86.o\
 	pc/kern.o\
 	pc/boot.o\
 	pc/vga.o\
+	pc/ps2.o\
 	pc/com.o\
 	${L}
 

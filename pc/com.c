@@ -52,7 +52,20 @@ com_putchar(uint16 port, uint8 c)
 	outb(port, c);
 }
 
-uint8
+void
+com_putc(char c)
+{
+	com_putchar(COM1, c);
+}
+
+void
+com_puts(char* s)
+{
+	for(int i = 0 ; i < strlen(s) ; i++)
+		com_putc(s[i]);
+}
+
+char
 com_getchar(uint16 port)
 {
 	while(!(inb(port + 5) & 1))
@@ -60,15 +73,21 @@ com_getchar(uint16 port)
 	return inb(port);
 }
 
-void
-com1_putchar(char c)
+char
+com_getc(void)
 {
-	com_putchar(COM1, c);
+	return com_getchar(COM1);
 }
 
-void
-com1_puts(char* s)
+char*
+com_getl(void)
 {
-	for(int i = 0 ; i < strlen(s) ; i++)
-		com1_putchar(s[i]);
+	char *cmd, c;
+	int i = 0;
+	/* might c be '\n'? unlikely */
+	while(c != '\n')
+	{
+		cmd[i] = c;
+	}
+	return cmd;
 }

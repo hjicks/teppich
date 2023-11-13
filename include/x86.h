@@ -1,8 +1,9 @@
 #pragma once
 #include <u.h>
 
-#define COM1 0x3f8
+#define COM1 0x3F8
 #define KB 0x60
+#define KB_CTR 0x64
 
 #define outb(port,data) asm volatile("out %0, %1" : : "a" (data), "d" (port));
 

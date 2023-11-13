@@ -31,6 +31,7 @@ enum {
 
 static uint8 vga_gencolor(int fg, int bg);
 static uint16 vga_char(unsigned char c, uint8 color);
+void vga_clear(char c);
 void vga_init(int fg, int bg);
 void vga_writeto(char c, uint8 color, int x, int y);
 void vga_nl(void);

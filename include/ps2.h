@@ -1,6 +1,30 @@
 #pragma once
 #define KB 0x60
 
+static char keymap[128] = {
+	"\0\x1b""1234567890-=\b\t"
+	"qwertyuiop[]\r\0as"
+	"dfghjkl;'`\0\\zxcv"
+	"bnm,./\0*\0 \0\0\0\0\0\0"
+	"\0\0\0\0\0\0\0""789-456+1"
+	"230."
+};
+
+static char shifted_kbmap[128] =
+{
+	"\0\x1b""!@#$%^&*()_+\b\t"
+	"QWERTYUIOP{}\r\0AS"
+	"DFGHJKL:\"~\0|ZXCV"
+	"BNM<>?\0\0\0 \0\0\0\0\0\0"
+	"\0\0\0\0\0\0\0""789-456+1"
+	"230."
+};
+
+enum KB_CTR_CMD
+{
+	ENABLE = 0xAE,
+};
+
 enum KB_CMD
 {
 	SET_LED = 0xED,
@@ -31,91 +55,6 @@ enum KB_ANS
 };
 
 /* minix's input.h, Bedankt anderw, heel gaaf!  */
-enum {
-	KEY_A = 0x0004,
-	KEY_B,
-	KEY_C,
-	KEY_D,
-	KEY_E,
-	KEY_F,
-	KEY_G,
-	KEY_H,
-	KEY_I,
-	KEY_J,
-	KEY_K,
-	KEY_L,
-	KEY_M,
-	KEY_N,
-	KEY_O,
-	KEY_P,
-	KEY_Q,
-	KEY_R,
-	KEY_S,
-	KEY_T,
-	KEY_U,
-	KEY_V,
-	KEY_W,
-	KEY_X,
-	KEY_Y,
-	KEY_Z,
-	KEY_1,
-	KEY_2,
-	KEY_3,
-	KEY_4,
-	KEY_5,
-	KEY_6,
-	KEY_7,
-	KEY_8,
-	KEY_9,
-	KEY_0,
 
-	KEY_ENTER,
-	KEY_ESCAPE,
-	KEY_BACKSPACE,
-	KEY_TAB,
-	KEY_SPACEBAR,
-	KEY_DASH,
-	KEY_EQUAL,
-	KEY_OPEN_BRACKET,
-	KEY_CLOSE_BRACKET,
-	KEY_BACKSLASH,
-	KEY_EUROPE_1,
-	KEY_SEMICOLON,
-	KEY_APOSTROPH,
-	KEY_GRAVE_ACCENT,
-	KEY_COMMA,
-	KEY_PERIOD,
-	KEY_SLASH,
-	KEY_CAPS_LOCK,
-
-	KEY_F1,
-	KEY_F2,
-	KEY_F3,
-	KEY_F4,
-	KEY_F5,
-	KEY_F6,
-	KEY_F7,
-	KEY_F8,
-	KEY_F9,
-	KEY_F10,
-	KEY_F11,
-	KEY_F12,
-
-	KEY_PRINT_SCREEN,
-	KEY_SCROLL_LOCK,
-	KEY_PAUSE,
-	KEY_INSERT,
-	KEY_HOME,
-	KEY_PAGE_UP,
-	KEY_DELETE,
-	KEY_END,
-	KEY_PAGE_DOWN,
-	KEY_RIGHT_ARROW,
-	KEY_LEFT_ARROW,
-	KEY_DOWN_ARROW,
-	KEY_UP_ARROW,
-	KEY_NUM_LOCK,
-
-	/* did you expected to see the reset of scan codes here?
-		who do you think i am? a nerd? */
-};
+char ps2_getc(void);
+void ps2_init(void);
