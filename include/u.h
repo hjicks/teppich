@@ -1,5 +1,4 @@
 #pragma once
-
 #define nil ((void*)0x0)
 
 typedef int size_t;
@@ -12,3 +11,9 @@ typedef short int16;
 
 typedef unsigned long uint32;
 typedef long int32;
+
+typedef struct
+{
+	void *val;
+	void *next;
+}ll_t;

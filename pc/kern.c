@@ -1,6 +1,8 @@
+#include <u.h>
 #include <vga.h>
 #include <com.h>
 #include <ps2.h>
+#include <mem.h>
 #include <libc.h>
 
 /* abandon hope, all ye who enter here */
@@ -9,14 +11,11 @@ panic(void)
 {
 	vga_puts("panic: give up. it's over.\n");
 	com_puts("panic: give up. it's over.\n");
-	
 }
 
 int
 run(char* cmd)
 {
-	/* vga_puts(cmd); */
-
 	/* replace it with a proper table */
 	if(!strcmp(cmd, "clear"))
 	{
@@ -29,9 +28,12 @@ run(char* cmd)
 	else if(!strcmp(cmd, "reboot"))
 		return 0;
 	else
-		vga_puts("no such command");
+	{
+		vga_puts("\nno such command\n");
+	}
 
 	vga_putc('\n');
+	vga_puts("> ");
 	return 1;
 
 }
@@ -40,12 +42,11 @@ void
 repl(void)
 {
 	char c;
-	char *cmd = "";
+	char *cmd;
+
 	int i = 0;
-
-	vga_puts("salam az Teppich\n");
+	memset(cmd, 0, 16); 
 	vga_puts("> ");
-
 	while(1)
 	{
 
@@ -59,26 +60,35 @@ repl(void)
 		{
 			if(!run(cmd))
 				return;
+
 			/* clear the mess */
+			cmd = malloc(16);
 			i = 0;
-			memset(cmd, 0, 16);
-
-			vga_puts("> ");
-
+			
+		}
+		else if(c != '\b')
+		{
+			*(cmd+i) = c;
+			i++;
 		}
 		else
 		{
-			*(cmd+i) = c; /* heb */
-			i++;
+			/* we don't want a negative i */
+			if(i)
+				i--;
+			*(cmd+i) = 0;
+			
 		}
 	}
 }
 
-
 void
 kernel_main(void) 
 {
-	vga_init(WHITE, BLUE);
+	memset(memap, FREE, MEM_MAX * (1024 / BLOCKSIZE));
+
+	vga_init(BLUE, LIGHT_GREY);
+	vga_puts("Teppich\n");
 
 	repl();
 }
