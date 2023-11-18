@@ -46,14 +46,35 @@ vga_writeto(char c, uint8 color, int x, int y)
 	vga_buf[index] = vga_char(c, color);
 }
 
+void
+vga_scroll(void)
+{
+	int index;
+	index = 0;
+	while(index < VGA_WIDTH * (VGA_HEIGHT-1))
+	{
+		vga_buf[index] = vga_buf[index + VGA_WIDTH];
+		index++;
+	}
+	/* clear last line */
+	while(index < VGA_WIDTH * VGA_HEIGHT)
+	{
+		vga_buf[index] = vga_char(' ', vga_color);
+		index++;
+	}
+}
 
 void
 vga_nl(void)
 {
 	vga_col = 0; /* cr */
-	if(++vga_row == VGA_HEIGHT) /* lf */
-		vga_row = 0;
-	
+	if(vga_row == VGA_HEIGHT-1)
+	{
+		//vga_row = 0; /* lf */
+		vga_scroll();
+	}
+	else
+		vga_row++;
 }
 
 void
@@ -100,7 +121,7 @@ vga_putc(char c)
 		default:
 			vga_writeto(c, vga_color, vga_col, vga_row);
 			if(++vga_col == VGA_WIDTH)
-			vga_nl();
+				vga_nl();
 	}
 }
 
