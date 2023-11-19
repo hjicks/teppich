@@ -20,12 +20,15 @@ char
 ps2_getc()
 {
 	char c;
-	if(!(ps2_read_status() & 1))
-		return 0;
+	while(1)
+	{
+		if(!(ps2_read_status() & 1))
+			continue;
 
-	c = inb(KB);
-	if(c & 0x80)
-		return 0;
+		c = inb(KB);
+		if(c & 0x80)
+			continue;
 
-	return keymap[c];
+		return keymap[c];
+	}
 }

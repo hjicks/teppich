@@ -1,11 +1,13 @@
 #pragma once
 #include <u.h>
 
-static const size_t VGA_WIDTH = 80; /* x */
-static const size_t VGA_HEIGHT = 25; /* y */
+#define VGA_MEM 0xB8000
 
-size_t vga_row;
-size_t vga_col;
+static const uint8 VGA_WIDTH = 80; /* x */
+static const uint8 VGA_HEIGHT = 25; /* y */
+
+uint8 vga_row;
+uint8 vga_col;
 
 uint8 vga_color;
 uint16* vga_buf;
@@ -32,7 +34,7 @@ enum {
 static uint8 vga_gencolor(int fg, int bg);
 static uint16 vga_char(unsigned char c, uint8 color);
 void vga_clear(char c);
-void vga_init(int fg, int bg);
+void vga_init(void);
 void vga_writeto(char c, uint8 color, int x, int y);
 void vga_scroll(void);
 void vga_nl(void);

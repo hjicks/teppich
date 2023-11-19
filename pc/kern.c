@@ -1,16 +1,15 @@
 #include <u.h>
-#include <vga.h>
-#include <com.h>
-#include <ps2.h>
-#include <mem.h>
 #include <libc.h>
+#include <mem.h>
+#include <cons.h>
+#include <pccons.h>
+
 
 /* abandon hope, all ye who enter here */
 void
 panic(void)
 {
-	vga_puts("panic: give up. it's over.\n");
-	com_puts("panic: give up. it's over.\n");
+	conswrite(pccons, "panic: give up. it's over.\n");
 }
 
 int
@@ -19,21 +18,21 @@ run(char* cmd)
 	/* replace it with a proper table */
 	if(!strcmp(cmd, "clear"))
 	{
-		vga_clear(' ');
+		consclear(pccons, ' ');
 	}
 	else if(!strcmp(cmd, "hello"))
 	{
-		vga_puts("hi");
+		conswrite(pccons, "hi");
 	}
 	else if(!strcmp(cmd, "reboot"))
 		return 0;
 	else
 	{
-		vga_puts("\nno such command\n");
+		conswrite(pccons, "no such command");
 	}
 
-	vga_putc('\n');
-	vga_puts("> ");
+	conswrite(pccons, "\n");
+	conswrite(pccons, "> ");
 	return 1;
 
 }
@@ -46,15 +45,13 @@ repl(void)
 
 	int i = 0;
 	memset(cmd, 0, 16); 
-	vga_puts("> ");
+	conswrite(pccons, "> ");
 	while(1)
 	{
 
-		c = ps2_getc();
-		if(c == 0)
-			continue;
+		c = consread(pccons);
 
-		vga_putc(c);
+		consputc(pccons, c);
 
 		if(c == '\r' || c == '\n')
 		{
@@ -63,8 +60,7 @@ repl(void)
 
 			/* clear the mess */
 			cmd = malloc(16);
-			i = 0;
-			
+			i = 0;	
 		}
 		else if(c != '\b')
 		{
@@ -87,7 +83,8 @@ kernel_main(void)
 {
 	memset(memap, FREE, MEM_MAX * (1024 / BLOCKSIZE));
 
-	vga_init(BLUE, LIGHT_GREY);
+	consinit(pccons);
+	//conswrite(pccons, "Teppich\n");
 	vga_puts("Teppich\n");
 
 	repl();

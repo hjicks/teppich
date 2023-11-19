@@ -30,12 +30,12 @@ vga_clear(char c)
 }
 
 void
-vga_init(int fg, int bg)
+vga_init(void)
 {
 	vga_row = 0;
 	vga_col = 0;
-	vga_color = vga_gencolor(fg, bg);
-	vga_buf = (uint16*) 0xB8000;
+	vga_color = vga_gencolor(WHITE, BLACK);
+	vga_buf = (uint16*) VGA_MEM;
 	vga_clear(' ');
 }
 
