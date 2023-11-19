@@ -26,6 +26,7 @@ K=\
 	pc/ps2.o\
 	pc/com.o\
 	pc/mem.o\
+	pc/cons.o\
 	${L}
 
 all: teppich.elf
