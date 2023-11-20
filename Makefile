@@ -18,6 +18,7 @@ L = \
 	libc/memcpy.o\
 	libc/memset.o\
 	libc/lladd.o \
+	libc/lldel.o\
 
 K = \
 	pc/boot.o\
