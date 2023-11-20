@@ -11,5 +11,5 @@ consdev_t pccons =
 	.puts = vga_puts,
 	.putc = vga_putc,
 	.getc = ps2_getc,
-	
+	.scroll = vga_scroll,
 };

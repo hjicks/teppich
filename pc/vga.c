@@ -1,6 +1,7 @@
 #include <u.h>
 #include <libc.h>
 #include <vga.h>
+#include <mem.h>
 
 static inline uint8
 vga_gencolor(int fg, int bg)
@@ -35,7 +36,7 @@ vga_init(void)
 	vga_row = 0;
 	vga_col = 0;
 	vga_color = vga_gencolor(WHITE, BLACK);
-	vga_buf = (uint16*) VGA_MEM;
+	vga_buf = (uint16*)VGA_MEM;
 	vga_clear(' ');
 }
 
@@ -47,13 +48,13 @@ vga_writeto(char c, uint8 color, int x, int y)
 }
 
 void
-vga_scroll(void)
+vga_scroll(int lines)
 {
 	int index;
 	index = 0;
-	while(index < VGA_WIDTH * (VGA_HEIGHT-1))
+	while(index < VGA_WIDTH * (VGA_HEIGHT - lines))
 	{
-		vga_buf[index] = vga_buf[index + VGA_WIDTH];
+		vga_buf[index] = vga_buf[index + VGA_WIDTH * lines];
 		index++;
 	}
 	/* clear last line */
@@ -70,8 +71,7 @@ vga_nl(void)
 	vga_col = 0; /* cr */
 	if(vga_row == VGA_HEIGHT-1)
 	{
-		//vga_row = 0; /* lf */
-		vga_scroll();
+		vga_scroll(1);
 	}
 	else
 		vga_row++;
