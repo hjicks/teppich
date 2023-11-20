@@ -10,7 +10,7 @@ ASFLAGS += -g
 LDFLAGS += -T linker.ld
 
 QEMU ?= qemu-system-i386
-QFLAGS +=-m 2M -serial stdio -kernel teppich.elf
+QFLAGS +=-machine accel=kvm:tcg -m 2M -serial stdio -kernel teppich.elf
 
 L = \
 	libc/strlen.o\
