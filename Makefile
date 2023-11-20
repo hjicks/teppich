@@ -28,6 +28,7 @@ K = \
 	pc/com.o\
 	pc/mem.o\
 	pc/cons.o\
+	pc/bitmap.o\
 	${L}
 
 all: teppich.elf

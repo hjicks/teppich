@@ -3,7 +3,7 @@
 #include <mem.h>
 #include <cons.h>
 #include <pccons.h>
-
+#include <bitcons.h>
 
 /* abandon hope, all ye who enter here */
 void
@@ -84,8 +84,7 @@ kernel_main(void)
 	memset(memap, FREE, MEM_MAX * (1024 / BLOCKSIZE));
 
 	consinit(pccons);
-	//conswrite(pccons, "Teppich\n");
-	vga_puts("Teppich\n");
-
+	conswrite(bitcons, "Teppich");
+	
 	repl();
 }
