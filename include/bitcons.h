@@ -4,9 +4,9 @@
 #include <ps2.h>
 #include <bitmap.h>
 
-consdev_t bitcon = 
+consdev_t bitcons = 
 {
-	.name = "bitcon",
+	.name = "bitcons",
 	.init = vga_init,
 	.clear = vga_clear,
 	.puts = bitputs,

@@ -1,5 +1,7 @@
-#include <cons.h>
-#include <pccons.h>
+#include <u.h>
+#include <libc.h>
+#include <vga.h>
+#include <bitmap.h>
 
 void
 bitputs(char *s)
@@ -13,13 +15,13 @@ bitputs(char *s)
  		{
  			for(bit = 0; bit < 8 ; bit++)
  			{
-				set = blockfont[s[chr]][line] & 1 << bit;
-				consputc(pccons, (set ? 178 : ' '));
+				set = bitfont[s[chr]][line] & 1 << bit;
+				vga_putc(set ? 178 : ' ');
 			}
 		}
-		consputc(pccons, '\n');
+		vga_putc('\n');
 	}
-	consputc(pccons, '\n');
+	vga_putc('\n');
 }
 
 void
@@ -32,9 +34,9 @@ bitputc(char c)
 	{
 		for(bit = 0 ; bit < 8 ; bit++)
 		{
-			set = blockfont[s[chr]][line] & 1 << bit;
-			consputc(pccons, (set ? 178 : ' '));	
+			set = bitfont[c][line] & 1 << bit;
+			vga_putc(set ? 178 : ' ');	
 		}
-		consputc(pccons, '\n');
+		vga_putc('\n');
 	}
 }
