@@ -11,3 +11,4 @@ uint8 memap[MEM_MAX * 1024 / BLOCKSIZE];
 
 int _malloc(uint16 size);
 void* malloc(uint16 size);
+int free(void* mem);

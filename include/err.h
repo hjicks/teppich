@@ -8,7 +8,11 @@ enum
 	NAME_TOO_LONG,
 	NO_FILE,
 	FS_NOT_READY,
-	DIR_NOT_EMPTY,
+	DIR_NOT_EMPTY
+	,
 	NO_MEM,
+	
 	LL_ERR,
+	
+	NO_SUCH_CMD,
 }err;
