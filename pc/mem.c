@@ -5,7 +5,6 @@
 
 /* does first fit, returns index of that part of memory in memap */
 int
-
 _malloc(uint16 size)
 {
 	int i, j;
@@ -25,7 +24,7 @@ _malloc(uint16 size)
 			{
 	
 				/* we are done here, give address */
-				for(int j = i ; j > i - size; j--)
+				for(j = i ; j > i - size; j--)
 					memap[j] = TAKEN;
 			 	return i - size;
 			}

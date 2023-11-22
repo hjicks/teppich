@@ -11,9 +11,9 @@ typedef struct
 	void (*scroll)(int lines);
 }consdev_t;
 
-void consinit(consdev_t);
-void consclear(consdev_t, char);
-void conswrite(consdev_t cons, char* s);
-void consputc(consdev_t, char c);
+void consinit(consdev_t cons);
+void consclear(consdev_t cons, char c);
+void conswrite(consdev_t cons, char *s);
+void consputc(consdev_t cons, char c);
 char consread(consdev_t cons);
-void consscroll(consdev_t, int lines);
+void consscroll(consdev_t cons, int lines);

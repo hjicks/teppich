@@ -7,19 +7,25 @@ AS := $(TARG)-as
 
 CFLAGS +=-O0 -g -nostdinc -I./include/ -ffreestanding -fcommon -fno-pie
 ASFLAGS += -g
-LDFLAGS += -T linker.ld
+LDFLAGS += -T linker.ld -z noexecstack
 
 QEMU ?= qemu-system-i386
 QFLAGS +=-machine accel=kvm:tcg -m 2M -serial stdio -kernel teppich.elf
 
+C = \
+	cmd/rc.o\
+	cmd/echo.o\
+
 L = \
 	libc/strlen.o\
 	libc/strcmp.o\
+	libc/strcntok.o\
+	libc/strccnt.o\
 	libc/memcpy.o\
 	libc/memset.o\
-	libc/lladd.o \
+	libc/lladd.o\
 	libc/lldel.o\
-
+	
 K = \
 	pc/boot.o\
 	pc/x86.o\
@@ -28,9 +34,9 @@ K = \
 	pc/ps2.o\
 	pc/com.o\
 	pc/mem.o\
-	pc/cons.o\
 	pc/bitmap.o\
-	${L}
+	${L}\
+	${C}\
 
 all: teppich.elf
 

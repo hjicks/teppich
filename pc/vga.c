@@ -128,7 +128,9 @@ vga_putc(char c)
 void
 vga_puts(char *s)
 {
-	int len = strlen(s);
+	int len;
+	
+	len = strlen(s);
 	for(int i = 0 ; i < len ; i++)
 		vga_putc(s[i]);
 }

@@ -78,16 +78,3 @@ com_getc(void)
 {
 	return com_getchar(COM1);
 }
-
-char*
-com_getl(void)
-{
-	char *cmd, c;
-	int i = 0;
-	/* might c be '\n'? unlikely */
-	while(c != '\n')
-	{
-		cmd[i] = c;
-	}
-	return cmd;
-}
