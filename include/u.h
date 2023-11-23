@@ -1,5 +1,7 @@
 #pragma once
 #define nil ((void*)0x0)
+#define LONG_MAX	2147483647L
+#define LONG_MIN	-2147483648L
 
 typedef int size_t;
 
@@ -12,7 +14,9 @@ typedef short int16;
 typedef unsigned long uint32;
 typedef long int32;
 
-typedef char* va_list;
+
+
+typedef __builtin_va_list va_list;
 typedef struct
 {
 	void *val;
@@ -24,3 +28,4 @@ typedef struct
 	char *name;
 	int (*main)(int argc, char **argv);
 }prog_t;
+

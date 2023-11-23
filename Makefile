@@ -21,10 +21,14 @@ L = \
 	libc/strcmp.o\
 	libc/strcntok.o\
 	libc/strccnt.o\
+	libc/strtol.o\
+	libc/strncpy.o\
 	libc/memcpy.o\
 	libc/memset.o\
 	libc/lladd.o\
 	libc/lldel.o\
+	libc/printf.o\
+	libc/scanf.o\
 	
 K = \
 	pc/boot.o\
