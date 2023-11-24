@@ -20,3 +20,5 @@ int lldel(ll_t*);
 
 int printf(const char* restrict format, ...);
 int scanf (char * str, ...);
+
+char* itoa(int value, int base);
