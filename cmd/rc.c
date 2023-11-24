@@ -2,7 +2,6 @@
 #include <libc.h>
 
 #include <ps2.h>
-#include <vga.h>
 
 #include <mem.h>
 #include <err.h>
@@ -36,7 +35,7 @@ run(char *cmd)
 		if(!strcmp(arg0, cmdtbl[i].name))
 			return cmdtbl[i].main(argc, argv);
 	}
-	vga_puts("No such command\n");
+	printf("No such command\n");
 	
 	return NO_SUCH_CMD;
 }
@@ -50,11 +49,12 @@ rc_main(void)
 	int i = 0;
 	memset(cmd, 0, 25);
 	
-	vga_puts("> ");
+	printf("> ");
+	
 	while(1)
 	{
 		c = ps2_getc();
-		vga_putc(c);
+		printf("%c", c);
 		
 		if(c == '\r' || c == '\n')
 		{
@@ -65,7 +65,7 @@ rc_main(void)
 			cmd = malloc(25);
 			i = 0;
 			
-			vga_puts("> ");
+			printf("> ");
 		}
 		/* ignore spaces as first character and ignore more than one space */
 		else if((c == ' ') && (i == 0 || cmd[i - 1] == ' '))
