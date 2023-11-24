@@ -21,10 +21,9 @@ echo_main(int argc, char **argv)
 	
 	while(i < argc)
 	{
-		printf("%s", argv[i]);
-		printf(" ");
+		printf("%s ", argv[i]);
 		i++;
 	}
 	
-	vga_putc('\n');
+	printf("\n");
 }

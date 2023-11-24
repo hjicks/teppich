@@ -23,7 +23,9 @@ kernel_main(void)
 	memset(memap, FREE, MEM_MAX * (1024 / BLOCKSIZE));
 
 	vga_init();
-	vga_puts("Teppich\n");
+	ps2_init();
+	
+	printf("Teppich\n");
 	
 	rc_main();
 }
