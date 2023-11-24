@@ -10,11 +10,13 @@ ASFLAGS += -g
 LDFLAGS += -T linker.ld -z noexecstack
 
 QEMU ?= qemu-system-i386
-QFLAGS +=-machine accel=kvm:tcg -m 2M -serial stdio -kernel teppich.elf
+QFLAGS +=-machine accel=kvm:tcg -m 16M -serial stdio -kernel teppich.elf
 
 C = \
 	cmd/rc.o\
 	cmd/echo.o\
+	cmd/clear.o\
+	cmd/check.o\
 
 L = \
 	libc/strlen.o\
@@ -29,6 +31,7 @@ L = \
 	libc/lldel.o\
 	libc/printf.o\
 	libc/scanf.o\
+	libc/itoa.o\
 	
 K = \
 	pc/boot.o\
