@@ -1,5 +1,6 @@
 #include <u.h>
 #include <libc.h>
+//#include <vga.h>
 
 int
 print_char(int c)
@@ -76,8 +77,8 @@ printf(const char* restrict format, ...)
 	{
 		if (*format == '%') 
 			count += print_format(*(++format), ap);
-		else 
-			count += vga_putc(format);
+		else
+			count += vga_putc(*format);
 		format++;
 	}
 
