@@ -21,7 +21,7 @@ malloc_test(void)
 
 	printf("a location in memap = %x\n", ((int)(a) - MEM_BEG) / BLOCKSIZE);
 	printf("b location in memap = %x\n", ((int)(b) - MEM_BEG) / BLOCKSIZE);
-	printf("c location in memap = %x\n", ((int)(b) - MEM_BEG) / BLOCKSIZE);
+	printf("c location in memap = %x\n", ((int)(c) - MEM_BEG) / BLOCKSIZE);
 
 	printf("memap[a] = %x\n", memap[(((int)(a) - MEM_BEG) / BLOCKSIZE) + 1]);
 	printf("memap[b] = %x\n", memap[(((int)(b) - MEM_BEG) / BLOCKSIZE) + 1]);
