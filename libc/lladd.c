@@ -2,18 +2,19 @@
 #include <err.h>
 #include <mem.h>
 
+#include <vfs.h>
 int
 lladd(ll_t *last, void *data)
 {
 	ll_t *temp;
 
-	temp->val = data;
-	temp->next = nil;
-
 	if(last->next != nil)
 		return LL_ERR;
 
 	temp = malloc(sizeof(ll_t*));
+	
+	temp->val = data;
+	temp->next = nil;
 	
 	last->next = temp;
 	return OK;
