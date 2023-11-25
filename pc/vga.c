@@ -88,7 +88,9 @@ vga_putc(char c)
 			vga_nl();
 			return;
 		case '\t':
-			for(int i = 0 ; i < 4 ; i++)
+			/* dynamic tab! */	
+			int dst = (vga_col % 8) + 1;
+			for(int i = 0 ; i < dst ; i++)
 				vga_putc(' ');
 			return;
 		case '\b':
