@@ -2,7 +2,6 @@
 #include <err.h>
 #include <mem.h>
 
-#include <vfs.h>
 int
 lladd(ll_t *last, void *data)
 {
