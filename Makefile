@@ -17,6 +17,7 @@ C = \
 	cmd/echo.o\
 	cmd/clear.o\
 	cmd/check.o\
+	cmd/cal.o\
 
 L = \
 	libc/strlen.o\
