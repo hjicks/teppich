@@ -1,6 +1,6 @@
 /* 
 	free all entries in a linked list,
-	can, and will be dangrous
+	can, and will be dangerous
 */
 
 #include <u.h>
@@ -18,6 +18,6 @@ llfree(ll_t *head)
 	{
 		free(p);
 		p = t;
-		t = (ll_t*)head->next;
+		t = (ll_t*)t->next;
 	}
 }
