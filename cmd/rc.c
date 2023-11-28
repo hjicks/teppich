@@ -7,6 +7,8 @@
 #include <err.h>
 #include "rc.h"
 
+static char *cwd;
+
 int
 run(char *cmd)
 {
@@ -30,10 +32,10 @@ run(char *cmd)
 			argv[argc] = strcntok(cmd, ' ', argc);
 		}
 	}
-	for(int i = 0 ; i < sizeof(cmdtbl) ; i++)
+	for(int i = 0 ; i < sizeof(cmdtab) ; i++)
 	{
-		if(!strcmp(arg0, cmdtbl[i].name))
-			return cmdtbl[i].main(argc, argv);
+		if(!strcmp(arg0, cmdtab[i].name))
+			return cmdtab[i].main(argc, argv, cwd);
 	}
 	printf("No such command\n");
 	
@@ -46,11 +48,11 @@ rc_main(void)
 	char c;
 	char *cmd;
 
+	cwd = "/";
 	int i = 0;
 	memset(cmd, 0, 25);
 	
 	printf("> ");
-	
 	while(1)
 	{
 		c = ps2_getc();

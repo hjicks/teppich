@@ -14,8 +14,6 @@ typedef short int16;
 typedef unsigned long uint32;
 typedef long int32;
 
-
-
 typedef __builtin_va_list va_list;
 typedef struct
 {
@@ -26,6 +24,6 @@ typedef struct
 typedef struct
 {
 	char *name;
-	int (*main)(int argc, char **argv);
+	int (*main)(int argc, char **argv, char *cwd);
 }prog_t;
 

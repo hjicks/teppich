@@ -33,7 +33,7 @@ malloc_test(void)
 }
 
 int
-check_main(int argc, char **argv)
+check_main(int argc, char **argv, char *cwd)
 {
 	malloc_test();
 	printf("Press any key to quit test\n");

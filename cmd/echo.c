@@ -4,7 +4,7 @@
 #include <bitmap.h>
 
 void
-echo_main(int argc, char **argv)
+echo_main(int argc, char **argv, char *cwd)
 {
 	int i;
 

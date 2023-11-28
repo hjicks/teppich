@@ -1,13 +1,12 @@
 #pragma once
 
 void rc_main(void);
-int echo_main(int, char**);
-int clear_main(int, char**);
-int check_main(int, char**);
-int cal_main(int, char**);
+int echo_main(int, char**, char *cwd);
+int clear_main(int, char**, char *cwd);
+int check_main(int, char**, char *cwd);
+int cal_main(int, char**, char *cwd);
 
-
-static prog_t cmdtbl[] =
+static prog_t cmdtab[] =
 {
 	{"echo", echo_main},
 	{"clear", clear_main},
