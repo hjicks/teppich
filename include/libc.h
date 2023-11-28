@@ -11,12 +11,15 @@ char* strcntok(char *src, char token, int n);
 int strccnt(char *s, char c);
 long strtol(char *nptr, char **endptr, int base);
 char* strncpy(char *dst, const char *src, size_t num);
+char* strncat(char *s1, char *s2, long n);
 
 void* memset(void* src, char c, unsigned int len);
 void* memcpy(void *a1, void *a2, unsigned int len);
 
 int lladd(ll_t*, void*);
 int lldel(ll_t*);
+int lllen(ll_t *head);
+void llfree(ll_t *head);
 
 int printf(const char* restrict format, ...);
 int scanf (char * str, ...);
