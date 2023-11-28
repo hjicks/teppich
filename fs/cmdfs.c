@@ -30,7 +30,7 @@ cmdfs_init(void)
 	ulist = malloc(sizeof(ll_t*));
 	flist = malloc(sizeof(ll_t*));
 
-	lladd(ulist, &uroot);
+	lladd(ulist, &adam);
 	
 	cmdfs->fid = 1;
 	cmdfs->state = READY;

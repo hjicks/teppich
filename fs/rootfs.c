@@ -25,7 +25,7 @@ rootfs_init(void)
 	ulist = malloc(sizeof(ll_t*));
 	flist = malloc(sizeof(ll_t*));
 
-	lladd(ulist, &uroot);
+	lladd(ulist, &adam);
 	
 	rootfs->fid = 1;
 	rootfs->state = READY;
