@@ -5,4 +5,11 @@ typedef struct
 	char *pass;
 }user_t;
 
-user_t cuser;
+static user_t cuser;
+
+static user_t adam =
+{
+	.id = 1,
+	.name = "adam",
+	.pass = "",
+};
