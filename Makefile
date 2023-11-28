@@ -12,12 +12,18 @@ LDFLAGS += -T linker.ld -z noexecstack
 QEMU ?= qemu-system-i386
 QFLAGS +=-machine accel=kvm:tcg -m 16M -serial stdio -kernel teppich.elf
 
+F = \
+	fs/vfs.o\
+	fs/rootfs.o\
+	fs/cmdfs.o\
+
 C = \
 	cmd/rc.o\
 	cmd/echo.o\
 	cmd/clear.o\
 	cmd/check.o\
 	cmd/cal.o\
+	cmd/ls.o\
 
 L = \
 	libc/strlen.o\
@@ -26,10 +32,13 @@ L = \
 	libc/strccnt.o\
 	libc/strtol.o\
 	libc/strncpy.o\
+	libc/strncat.o\
 	libc/memcpy.o\
 	libc/memset.o\
 	libc/lladd.o\
 	libc/lldel.o\
+	libc/lllen.o\
+	libc/llfree.o\
 	libc/printf.o\
 	libc/scanf.o\
 	libc/itoa.o\
@@ -45,6 +54,7 @@ K = \
 	pc/bitmap.o\
 	${L}\
 	${C}\
+	${F}\
 
 all: teppich.elf
 
