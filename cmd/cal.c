@@ -1,3 +1,9 @@
+#include <u.h>
+#include <libc.h>
+
+#include <mem.h>
+#include <ps2.h>
+
 char*
 somegetline(int n)
 {
@@ -13,7 +19,7 @@ somegetline(int n)
   {
     c = ps2_getc();
     // you may, or may not require the following
-    vga_putc(c); 
+    printf("%c", c); 
     
     if(c == '\r' || c == '\n')
     {
