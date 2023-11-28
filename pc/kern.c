@@ -1,9 +1,8 @@
 #include <u.h>
 #include <libc.h>
-#include <mem.h>
-#include <cons.h>
-#include <pccons.h>
 #include "../cmd/rc.h"
+
+#include <mem.h>
 
 #include <vga.h>
 #include <ps2.h>
