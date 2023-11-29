@@ -1,7 +1,6 @@
 #include <u.h>
 #include <libc.h>
 #include <vga.h>
-#include <mem.h>
 
 static inline uint8
 vga_gencolor(int fg, int bg)
@@ -93,7 +92,7 @@ vga_putc(char c)
 			return;
 		case '\b':
 			if(vga_col > 0)
-				vga_writeto(' ', vga_color, vga_row, --vga_col);
+				vga_writeto(' ', vga_color, --vga_col, vga_row);
 
 			return;
 		default:
