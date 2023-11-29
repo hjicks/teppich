@@ -2,8 +2,12 @@
 #include <u.h>
 
 #define COM1 0x3F8
-#define KB 0x60
-#define KB_CTR 0x64
+
+#define KBD 0x60
+#define KBC 0x64
+
+#define VGAC 0x3d4
+#define VGAD 0x3d5
 
 #define outb(port,data) asm volatile("out %0, %1" : : "a" (data), "d" (port));
 
