@@ -1,8 +1,4 @@
 #pragma once
-
-#define KBD 0x60
-#define KBC 0x64
-
 static char keymap[2][128] = 
 {
 	{
