@@ -6,6 +6,7 @@ int clear_main(int, char**, char *cwd);
 int check_main(int, char**, char *cwd);
 int cal_main(int, char**, char *cwd);
 int ls_main(int, char**, char *cwd);
+int reboot_main(int, char**, char *cwd);
 
 static prog_t cmdtab[] =
 {
@@ -14,4 +15,5 @@ static prog_t cmdtab[] =
 	{"check", check_main},
 	{"cal", cal_main},
 	{"ls", ls_main},
+	{"reboot", reboot_main}
 };
