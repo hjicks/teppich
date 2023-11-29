@@ -51,6 +51,7 @@ void
 vga_scroll(int lines)
 {
 	int index;
+
 	index = 0;
 	while(index < VGA_WIDTH * (VGA_HEIGHT - lines))
 	{
@@ -70,9 +71,7 @@ vga_nl(void)
 {
 	vga_col = 0; /* cr */
 	if(vga_row == VGA_HEIGHT-1)
-	{
 		vga_scroll(1);
-	}
 	else
 		vga_row++;
 }
@@ -80,7 +79,6 @@ vga_nl(void)
 void
 vga_putc(char c)
 {
-	int index = vga_row * VGA_WIDTH + vga_col;
 	switch(c)
 	{
 		case '\r':
@@ -95,29 +93,7 @@ vga_putc(char c)
 			return;
 		case '\b':
 			if(vga_col > 0)
-			{
-				/* index points at current loction of cursor, which is empty. */
-				vga_buf[index - 1] = vga_char(' ', vga_color);
-				vga_col--;
-			}
-
-			/*
-			is the following needed? i wonder.
-			i'm aware of no OSes that allow their raw terminal interface
-			allow returing to previous lines.
-			only Plan 9 console driver allows this on rio.
-
-			maybe it's safer to skip it.... for now.
-
-			else if(vga_row == 0)
-			{
-			// we need a smarter terminal-ish version
-			//		smh like
-			//		vga_row = vga_find_last_nonchar(' ');
-
-				vga_row = VGA_WIDTH;
-			}
-			*/
+				vga_writeto(' ', vga_color, vga_row, --vga_col);
 
 			return;
 		default:
