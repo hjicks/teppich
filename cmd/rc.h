@@ -1,13 +1,13 @@
 #pragma once
 
 void rc_main(void);
-int echo_main(int, char**, char *cwd);
-int clear_main(int, char**, char *cwd);
-int check_main(int, char**, char *cwd);
-int cal_main(int, char**, char *cwd);
-int ls_main(int, char**, char *cwd);
-int reboot_main(int, char**, char *cwd);
-int memory_main(int, char**, char *cwd);
+int echo_main(int argc, char** argv, char *cwd);
+int clear_main(int argc, char** argv, char *cwd);
+int check_main(int argc, char** argv, char *cwd);
+int cal_main(int argc, char** argv, char *cwd);
+int ls_main(int argc, char** argv, char *cwd);
+int reboot_main(int argc, char** argv, char *cwd);
+int memory_main(int argc, char** argv, char *cwd);
 
 static prog_t cmdtab[] =
 {
