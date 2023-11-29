@@ -10,36 +10,49 @@
 static char *cwd;
 
 int
-run(char *cmd)
+exec(int argc, char* argv0, char **argv, char *cwd)
 {
-	int argc;
-	char *arg0, **argv;
+	int status;
+
+	status = NO_SUCH_CMD;
+	for(int i = 0 ; i < sizeof(cmdtab) ; i++)
+	{
+		if(!strcmp(argv0, cmdtab[i].name))
+			status = cmdtab[i].main(argc, argv, cwd);
+	}
+	
+	/* free the memory, whetever if we found a match or not */
+	for(int j = 0 ; j < argc ; j++)
+	{
+		free(argv[j]);
+	}
+	free(argv0);
+	return status;
+}
+
+int
+call(char *cmd)
+{
+	int argc, status;
+	char *argv0, **argv;
 	
 	/* always always always
 	check for nil pointers */
 	
-	arg0 = strcntok(cmd, ' ', 0);
+	argv0 = strcntok(cmd, ' ', 0);
 	
-	if(!arg0)
+	if(argv0 == nil)
 	{
-		arg0 = cmd;
+		argv0 = strdup(cmd); /* it still may be nil */
 		argc = 0;
+		/* shouldn't we do something regarding argv here? one wonders */
 	}
 	else
 	{
 		for(argc = 0 ; argc < (strccnt(cmd, ' ') + 1) ; argc++)
-		{
 			argv[argc] = strcntok(cmd, ' ', argc);
-		}
 	}
-	for(int i = 0 ; i < sizeof(cmdtab) ; i++)
-	{
-		if(!strcmp(arg0, cmdtab[i].name))
-			return cmdtab[i].main(argc, argv, cwd);
-	}
-	printf("No such command\n");
-	
-	return NO_SUCH_CMD;
+	return exec(argc, argv0, argv, cwd);
 }
 
 void
@@ -50,6 +63,7 @@ rc_main(void)
 
 	cwd = "/";
 	int i = 0;
+	cmd = malloc(25);
 	memset(cmd, 0, 25);
 	
 	printf("> ");
@@ -61,10 +75,11 @@ rc_main(void)
 		if(c == '\r' || c == '\n')
 		{
 			cmd[i] = '\0';
-			run(cmd);
+			if(call(cmd) == NO_SUCH_CMD)
+				printf("No such command\n");
 			
 			/* clear the mess */
-			cmd = malloc(25);
+			memset(cmd, 0, 25);
 			i = 0;
 			
 			printf("> ");
