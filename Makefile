@@ -25,6 +25,7 @@ C = \
 	cmd/cal.o\
 	cmd/ls.o\
 	cmd/reboot.o\
+	cmd/memory.o\
 
 L = \
 	libc/strlen.o\
