@@ -35,6 +35,7 @@ L = \
 	libc/strtol.o\
 	libc/strncpy.o\
 	libc/strncat.o\
+	libc/strdup.o\
 	libc/memcpy.o\
 	libc/memset.o\
 	libc/lladd.o\
