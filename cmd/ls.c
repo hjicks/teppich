@@ -1,8 +1,6 @@
 #include <u.h>
 #include <libc.h>
-
 #include <err.h>
-
 #include <mem.h>
 #include <vfs.h>
 
@@ -15,6 +13,7 @@ permtoletter(uint16 perms)
 
 	i = 0;
 	j = 0;
+
 	while(i < 9)
 	{
 		s[j++] = (perms & (4 << i)) ? 'r' : '-';
@@ -29,6 +28,7 @@ permtoletter(uint16 perms)
 	return s;
 }
 
+
 int
 ls_main(int argc, char **argv, char *cwd)
 {
@@ -36,11 +36,18 @@ ls_main(int argc, char **argv, char *cwd)
 	fs_t *fs;
 	file_t *f, *dir;
 	char *perms;
+	int lflag;
 
+	lflag = 0;
 	if(argc == 1)
 	{
 		argv[1] = "/";
 		argc = 2;
+	}
+	if(argc > 1 && !strcmp(argv[1], "-l"))
+	{
+		lflag = 1;
+		argv++;
 	}
 	
 	fs = getfs(argv[1]);
@@ -63,16 +70,25 @@ ls_main(int argc, char **argv, char *cwd)
 	while(t != nil)
 	{
 		f = ((file_t*)t->val);
-	
-		printf("%d\t", f->fid);
-		printf("%d\t", f->size);
+		if(lflag)
+		{
+			printf("%d\t", f->fid);
+			printf("%d\t", f->size);
 
-		printf("%d\t", f->owner);
-		printf("%s\t", permtoletter(f->perms));
+			printf("%d\t", f->owner);
+			perms = permtoletter(f->perms);
+			printf("%s\t", perms);
 
-		printf("%s", f->path);
-		printf("%s\n", f->name);
-			
+			printf("%s", f->path);
+			printf("%s\n", f->name);
+		}
+		else
+		{
+
+			printf("%s", f->path);
+			printf("%s\n", f->name);
+		}
+
 		t = (ll_t*)t->next;
 	}
 	
