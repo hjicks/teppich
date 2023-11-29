@@ -10,7 +10,7 @@ lladd(ll_t *last, void *data)
 	if(last->next != nil)
 		return LL_ERR;
 
-	temp = malloc(sizeof(ll_t*));
+	temp = (ll_t*)malloc(sizeof(ll_t));
 	
 	temp->val = data;
 	temp->next = nil;
