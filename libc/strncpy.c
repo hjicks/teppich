@@ -3,18 +3,16 @@
 char*
 strncpy(char *dst, const char *src, size_t num)
 {
-	char *dst_p = dst;
+	char *dst_p;
 
-	if (num != 0) {
-
-		do {
-			if ((*dst++ = *src++) == 0) {
-				/* NULL pad the remaining n-1 bytes */
-				while (--num != 0)
-					*dst++ = 0;
-				break;
-			}
-		} while (--num != 0);
+	dst_p = dst;
+	while(*src != '\0' && num > 0)
+	{
+		*dst++ = *src++;
+		num--;
 	}
+	if(src != '\0')
+		*dst = '\0';
+
 	return (dst_p);
 }

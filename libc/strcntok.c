@@ -8,7 +8,7 @@ strcntok(char *src, char token, int n)
 {
 	int i, b, match, lastmatch, lastnotmatch;
 	char *res;
-			
+
 	match = -1; /* n = 0, match++ = 0 */
 	lastmatch = 0;
 	i = 0;
@@ -19,24 +19,23 @@ strcntok(char *src, char token, int n)
 			match++;
 			if(match == n)
 			{
-				res = malloc(i + 1 - lastmatch); /* i - lastmatch + '\0' */
-				/* TODO: use strncpy */	
-				memcpy(res, src + lastmatch, i - lastmatch);
-				res[i - lastmatch] = '\0';
+				res = (char*)malloc(i + 1 - lastmatch); /* i - lastmatch + '\0' */
+				strncpy(res, src + lastmatch, i - lastmatch);
 				return res;
 			}
 
 			lastmatch = i+1;
 		}
+
 		i++;
 	}
 	
 	/* last instance would return anything left */
-	if(n == match + 1)
+	if(match == n - 1)
 	{
-		res = malloc(i - lastmatch);
-		memcpy(res, src + lastmatch, i - lastmatch);
-		return res;	
+		res = (char*)malloc(i + 1 - lastmatch);
+		strncpy(res, src + lastmatch, i - lastmatch);
+		return res;
 	}
 	return nil;
 }
