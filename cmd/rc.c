@@ -22,10 +22,8 @@ exec(int argc, char* argv0, char **argv, char *cwd)
 	}
 	
 	/* free the memory, whetever if we found a match or not */
-	for(int j = 0 ; j < argc ; j++)
-	{
+	for(int j = 0 ; j < argc+1 ; j++)
 		free(argv[j]);
-	}
 	free(argv0);
 	return status;
 }
@@ -51,7 +49,10 @@ call(char *cmd)
 	{
 		for(argc = 0 ; argc < (strccnt(cmd, ' ') + 1) ; argc++)
 			argv[argc] = strcntok(cmd, ' ', argc);
+
+		argv[argc+1] = '\0'; /* just in case */
 	}
+
 	return exec(argc, argv0, argv, cwd);
 }
 
@@ -64,7 +65,6 @@ rc_main(void)
 	cwd = "/";
 	int i = 0;
 	cmd = malloc(25);
-	memset(cmd, 0, 25);
 	
 	printf("> ");
 	while(1)
@@ -79,7 +79,7 @@ rc_main(void)
 				printf("No such command\n");
 			
 			/* clear the mess */
-			memset(cmd, 0, 25);
+			memset(cmd, '\0', 25);
 			i = 0;
 			
 			printf("> ");
