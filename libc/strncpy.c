@@ -11,7 +11,7 @@ strncpy(char *dst, const char *src, size_t num)
 		*dst++ = *src++;
 		num--;
 	}
-	if(src != '\0')
+	if(*src != '\0')
 		*dst = '\0';
 
 	return (dst_p);
