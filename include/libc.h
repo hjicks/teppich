@@ -25,4 +25,6 @@ void llfree(ll_t *head);
 int printf(const char* restrict format, ...);
 int scanf (char * str, ...);
 
-char* itoa(int value, int base);
+char* itoa(int num, char* str, int base);
+
+long adler32(char *data);

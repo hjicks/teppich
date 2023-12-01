@@ -3,62 +3,67 @@
 
 #include <vga.h>
 #include <ps2.h>
+#include <mem.h>
 
-int scanf(char *str, ...)
+char*
+get_char()
 {
-	va_list vl;
-	int i = 0, j=0, ret = 0;
-	char buff[100] = {0}, tmp[20], c;
-	char *out_loc;
-
-
-	while(c != '\r') 
-	{
+    int i = 0;
+    char *buff = malloc(10), c;
+    while (1 == 1)
+    {
 		c = ps2_getc();
 		vga_putc(c);
-		buff[i] = c;
-		i++;
-	}
-	
-	va_start( vl, str );
-	i = 0;
-	while (str && str[i])
-	{
-		if(str[i] == '%') 
-		{
-			i++;
-			switch (str[i]) 
-			{
-				case 'c': 
-				{
-					*(char*)va_arg(vl, char*) = buff[j];
-					j++;
-					ret++;
-					break;
-				}
-				case 'd': 
-				{
-					*(int*)va_arg( vl, int* ) = strtol(&buff[j], &out_loc, 10);
-					j+=out_loc -&buff[j];
-					ret++;
-					break;
-				}
-				case 'x': 
-				{
-					*(int *)va_arg( vl, int* ) = strtol(&buff[j], &out_loc, 16);
-					j += out_loc -&buff[j];
-					ret++;
-					break;
-				}
-			}
-		} 
-		else 
-		{
-			buff[j] =str[i];
-            		j++;
-        	}
-		i++;
-	}
-	va_end(vl);
-	return ret;
+        if (c != '\r')
+        {
+            buff[i] = c;
+            i++;
+        }
+        else break;
+    }
+    return buff; 
 }
+
+int
+scanf(char *str, ...)
+{
+    va_list ap;
+    va_start(ap, str);
+
+    int count = 0;
+    char *buffer, *temp;
+
+    while (*str != '\0')
+    {
+        if (*str == '%')
+        {
+            buffer = get_char();
+            str++;
+            switch(*str)
+            {
+                case 'c':
+                    *va_arg(ap, char*) = buffer[0];
+                    count++;
+                    break;
+                case 's':
+                    *va_arg(ap, char**) = buffer;
+                    count++;
+                    break;
+                case 'd':
+                    *va_arg(ap, int*) = strtol(buffer, &temp, 10);
+                    count++;
+                    break;
+                case 'x':
+                    *va_arg(ap, int*) = strtol(buffer, &temp, 16);
+                    count++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        str++;
+    }
+    va_end(ap);
+    return count;
+}
+

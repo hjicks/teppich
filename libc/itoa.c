@@ -1,39 +1,59 @@
-char*
-itoa(int value, int base )
+// A utility function to reverse a string
+void
+reverse(char str[], int length)
 {
-	char *rc;
-	char *ptr;
-	char *low;
-	char *str;
-	// Check for supported base.
-	if ( base < 2 || base > 36 )
+	int start = 0;
+	int end = length - 1;
+	while (start < end) 
 	{
-		*str = '\0';
+		char temp = str[start];
+		str[start] = str[end];
+		str[end] = temp;
+		end--;
+		start++;
+	}
+}
+
+char*
+itoa(int num, char* str, int base)
+{
+	int i = 0;
+	int isNegative = 0;
+
+	// Handle 0 explicitly
+	if (num == 0) 
+	{
+		str[i++] = '0';
+		str[i] = '\0';
 		return str;
 	}
-	rc = ptr = str;
-	// Set '-' for negative decimals.
-	if ( value < 0 && base == 10 )
+
+	/* In standard itoa(), negative numbers are handled
+	 only with base 10. Otherwise numbers are
+	 considered unsigned. */
+	if (num < 0 && base == 10) 
 	{
-		*ptr++ = '-';
+		isNegative = 1;
+		num = -num;
 	}
-	// Remember where the numbers start.
-	low = ptr;
-	// The actual conversion.
-	do
+
+	// Process individual digits
+	while (num != 0) 
 	{
-		// Modulo is negative for negative value. This trick makes abs() unnecessary.
-		*ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz"[35 + value % base];
-		value /= base;
-	} while ( value );
-	// Terminating the string.
-	*ptr-- = '\0';
-	// Invert the numbers.
-	while ( low < ptr )
-	{
-		char tmp = *low;
-		*low++ = *ptr;
-		*ptr-- = tmp;
+		int rem = num % base;
+		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
+		num = num / base;
 	}
-	return rc;
+
+	// If number is negative, append '-'
+	if (isNegative)
+		str[i++] = '-';
+
+	// Reverse the string
+	reverse(str, i);
+	
+	// Append string terminator
+	str[i] = '\0';
+
+	return str;
 }
