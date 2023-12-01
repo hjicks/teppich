@@ -45,6 +45,7 @@ L = \
 	libc/printf.o\
 	libc/scanf.o\
 	libc/itoa.o\
+	libc/adler32.o\
 	
 K = \
 	pc/boot.o\
