@@ -73,7 +73,7 @@ numtochar(int input){
 }
 
 void
-cal_main(int, char**, char*){
+cal_main(int argc, char** argv){
 	char *input;
 	int num1;
 	int num2;
