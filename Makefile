@@ -16,6 +16,7 @@ F = \
 	fs/vfs.o\
 	fs/rootfs.o\
 	fs/cmdfs.o\
+	fs/envfs.o\
 
 C = \
 	cmd/rc.o\
@@ -26,6 +27,9 @@ C = \
 	cmd/ls.o\
 	cmd/reboot.o\
 	cmd/memory.o\
+	cmd/cat.o\
+	cmd/login.o\
+	cmd/id.o\
 
 L = \
 	libc/strlen.o\
@@ -55,7 +59,9 @@ K = \
 	pc/ps2.o\
 	pc/com.o\
 	pc/mem.o\
+	pc/cons.o\
 	pc/bitmap.o\
+	pc/user.o\
 	${L}\
 	${C}\
 	${F}\
