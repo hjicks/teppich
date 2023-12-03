@@ -90,6 +90,13 @@ envfs_new(char *name, char *buf)
 	if(envfs->state != READY)
 		envfs_init();
 
+	if(strlen(name) > NAME_MAX)
+		return NAME_TOO_LONG;
+
+	for(int i = 0 ; i < strlen(name) ; i++)
+		if(!isalpha(name[i]))
+			return INVALID_FILENAME;
+
 	f = envfs_create(name);
 	f->buf = malloc(strlen(buf));
 	strncpy(f->buf, buf, strlen(buf));
