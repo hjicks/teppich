@@ -1,31 +1,67 @@
 #include <cons.h>
+#include <vga.h>
+#include <ps2.h>
+#include <bitmap.h>
+#include <com.h>
+
+consdev_t pccons = 
+{
+	.name = "cons",
+	.init = vga_init,
+	.clear = vga_clear,
+	.puts = vga_puts,
+	.putc = vga_putc,
+	.getc = ps2_getc,
+	.scroll = vga_scroll,
+};
+
+consdev_t bitcons =
+{
+	.name = "bitcons",
+	.init = vga_init,
+	.clear = vga_clear,
+	.puts = bitputs,
+	.putc = bitputc,
+	.getc = ps2_getc,
+	.scroll = vga_scroll,
+};
+
+consdev_t serialcons =
+{
+	.name = "serialcons",
+	.init = com_init,
+	/* .clear = nil */
+	.puts = com_puts,
+	.getc = com_getc,
+	/* .scroll = nil */
+};
 
 void
-consinit(consdev_t cons)
+cons_init(consdev_t cons)
 {
 	cons.init();
 }
 
 void
-consclear(consdev_t cons, char c)
+cons_clear(consdev_t cons, char c)
 {
 	cons.clear(c);
 }
 
 void
-consputc(consdev_t cons, char c)
+cons_putc(consdev_t cons, char c)
 {
 	cons.putc(c);
 }
 
 void
-conswrite(consdev_t cons, char *s)
+cons_write(consdev_t cons, char *s)
 {
 	cons.puts(s);
 }
 
 char
-consread(consdev_t cons)
+cons_read(consdev_t cons)
 {
 	return cons.getc();	
 }
