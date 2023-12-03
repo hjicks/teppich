@@ -64,6 +64,7 @@ free(void *mem)
 	while(memap[i])
 	{
 		memap[i] = 0;
+		*(char*)mem++ = '\0';
 		i++;
 	}
 	return OK;
