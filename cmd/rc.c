@@ -9,7 +9,7 @@
 static char *cwd;
 
 int
-exec(int argc, char* argv0, char **argv, char *cwd)
+exec(int argc, char* argv0, char **argv)
 {
 	int status;
 
@@ -52,7 +52,7 @@ call(char *cmd)
 		argv[argc+1] = '\0'; /* just in case */
 	}
 
-	return exec(argc, argv0, argv, cwd);
+	return exec(argc, argv0, argv);
 }
 
 void
