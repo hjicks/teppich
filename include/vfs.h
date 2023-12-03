@@ -47,6 +47,8 @@ typedef struct
 	fs_t* (*init)();
 }mnt_t;
 
-ll_t* readdir(fs_t *fs, file_t *dir);
+ll_t* dirread(fs_t *fs, file_t *dir);
+char* dirname(char *s, char c);
+
 file_t* pathtofile(fs_t *fs, char *path, char *name);
 fs_t* getfs(char *path);

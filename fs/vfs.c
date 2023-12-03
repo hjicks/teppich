@@ -14,7 +14,7 @@
 #include "fstab.h"
 
 ll_t*
-readdir(fs_t *fs, file_t *dir)
+dirread(fs_t *fs, file_t *dir)
 {
 	int i;
 	ll_t *t, *flist, *flist_last;
@@ -33,11 +33,10 @@ readdir(fs_t *fs, file_t *dir)
 	while(t != nil)
 	{
 		f = t->val;
-		
 		if(!strcmp(path, f->path))
 		{
 			lladd(flist_last, f);
-			flist_last = flist_last->next;
+			flist_last = (ll_t*)flist_last->next;
 		}
 		
 		t = (ll_t*)t->next;
@@ -52,8 +51,7 @@ pathtofile(fs_t *fs, char *path, char *name)
 	char *p, *n;
 	ll_t *t;
 	file_t *f;
-	
-	
+
 	t = fs->files;
 	if(name == nil) /* dir */
 	{
@@ -61,7 +59,7 @@ pathtofile(fs_t *fs, char *path, char *name)
 		{
 			f = (file_t*)t->val;
 			p = f->path;
-			/* n = f->name; */
+
 			if(!strcmp(path, p))
 				return f;
 		
@@ -75,7 +73,6 @@ pathtofile(fs_t *fs, char *path, char *name)
 			f = (file_t*)t->val;
 			p = f->path;
 			n = f->name;
-			/* n = f->name; */
 			if(!strcmp(path, p) && !strcmp(name, n))
 				return f;
 		
@@ -89,10 +86,29 @@ pathtofile(fs_t *fs, char *path, char *name)
 fs_t*
 getfs(char *path)
 {
-	for(int i = 0 ; i < sizeof(fstab) ; i++)
+	for(int i = 0 ; i < sizeof(fstab) / sizeof(mnt_t) ; i++)
 	{
 		if(!strcmp(path, fstab[i].name))
 			return fstab[i].init();
 	}
 	return nil;
+}
+
+char*
+dirname(char *s, char c)
+{
+	int last;
+	char *t;
+	
+	last = 0;
+	for(int i = 0 ; i < strlen(s) ; i++)
+	{
+		if(s[i] == c)
+			last = i;
+	}
+
+	if(last == 0)
+		return nil;
+	t = (char*)malloc(last+1);
+	return strncpy(s, s, last);
 }
