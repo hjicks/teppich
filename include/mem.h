@@ -1,8 +1,8 @@
 #pragma once
-#define MEM_MAX 480
+#define MEM_MAX 1024
 #define BLOCKSIZE 64
-#define MEM_BEG 0x7E00
-#define MEM_END 0x7FFFF
+#define MEM_BEG 0x200000
+#define MEM_END 0xF00000
 
 #define FREE 0
 #define TAKEN 1
