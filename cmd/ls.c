@@ -11,17 +11,17 @@ permtoletter(uint16 perms)
 	int i, j;
 	s = malloc(16);
 
-	i = 0;
+	i = 6; /* most significant bit */
 	j = 0;
 
-	while(i < 9)
+	while(i >= 0)
 	{
 		s[j++] = (perms & (4 << i)) ? 'r' : '-';
 		s[j++] = (perms & (2 << i)) ? 'w' : '-';
 		s[j++] = (perms & (1 << i)) ? 'x' : '-';
 		
 		/* we iterate 3 bits each time */
-		i += 3;
+		i -= 3;
 	}
 		
 	s[j++] = '\0';
@@ -30,7 +30,7 @@ permtoletter(uint16 perms)
 
 
 int
-ls_main(int argc, char **argv, char *cwd)
+ls_main(int argc, char **argv)
 {
 	ll_t *t, *head;
 	fs_t *fs;
@@ -64,7 +64,7 @@ ls_main(int argc, char **argv, char *cwd)
 		return NO_SUCH_FILE;
 	}
 
-	head = readdir(fs, dir); 
+	head = dirread(fs, dir); 
 	t = (ll_t*)head->next; /* first entry is always trash */
 	
 	while(t != nil)
@@ -76,8 +76,7 @@ ls_main(int argc, char **argv, char *cwd)
 			printf("%d\t", f->size);
 
 			printf("%d\t", f->owner);
-			perms = permtoletter(f->perms);
-			printf("%s\t", perms);
+			printf("%s\t", permtoletter(f->perms));
 
 			printf("%s", f->path);
 			printf("%s\n", f->name);
