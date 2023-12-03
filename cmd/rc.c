@@ -1,10 +1,9 @@
 #include <u.h>
 #include <libc.h>
-
 #include <ps2.h>
-
 #include <mem.h>
 #include <err.h>
+#include <user.h>
 #include "rc.h"
 
 static char *cwd;
@@ -18,13 +17,13 @@ exec(int argc, char* argv0, char **argv, char *cwd)
 	for(int i = 0 ; i < sizeof(cmdtab) ; i++)
 	{
 		if(!strcmp(argv0, cmdtab[i].name))
-			status = cmdtab[i].main(argc, argv, cwd);
+			status = cmdtab[i].main(argc, argv);
 	}
-	
 	/* free the memory, whetever if we found a match or not */
 	for(int j = 0 ; j < argc+1 ; j++)
 		free(argv[j]);
 	free(argv0);
+
 	return status;
 }
 
@@ -59,14 +58,14 @@ call(char *cmd)
 void
 rc_main(void)
 {
-	char c;
-	char *cmd;
+	int i;
+	char c, *cmd;
 
 	cwd = "/";
-	int i = 0;
+	i = 0;
 	cmd = malloc(25);
 	
-	printf("> ");
+	printf("%s> ", cuser.name);
 	while(1)
 	{
 		c = ps2_getc();
@@ -77,12 +76,12 @@ rc_main(void)
 			cmd[i] = '\0';
 			if(call(cmd) == NO_SUCH_CMD)
 				printf("No such command\n");
-			
+
 			/* clear the mess */
 			memset(cmd, '\0', 25);
 			i = 0;
-			
-			printf("> ");
+
+			printf("%s> ", cuser.name);
 		}
 		/* ignore spaces as first character and ignore more than one space */
 		else if((c == ' ') && (i == 0 || cmd[i - 1] == ' '))
@@ -97,7 +96,7 @@ rc_main(void)
 			/* we don't want a negative i */
 			if(i)
 				i--;
-			cmd[i] = 0;
+			cmd[i] = '\0';
 		}
 	}
 }

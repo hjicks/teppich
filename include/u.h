@@ -24,6 +24,6 @@ typedef struct
 typedef struct
 {
 	char *name;
-	int (*main)(int argc, char **argv, char *cwd);
+	int (*main)(int argc, char **argv);
 }prog_t;
 

@@ -1,13 +1,16 @@
 #pragma once
 
-void rc_main(void);
-int echo_main(int argc, char** argv, char *cwd);
-int clear_main(int argc, char** argv, char *cwd);
-int check_main(int argc, char** argv, char *cwd);
-int cal_main(int argc, char** argv, char *cwd);
-int ls_main(int argc, char** argv, char *cwd);
-int reboot_main(int argc, char** argv, char *cwd);
-int memory_main(int argc, char** argv, char *cwd);
+extern void rc_main(void);
+extern int echo_main(int argc, char **argv);
+extern int clear_main(int argc, char **argv);
+extern int check_main(int argc, char **argv);
+extern int cal_main(int argc, char **argv);
+extern int ls_main(int argc, char **argv);
+extern int reboot_main(int argc, char **argv);
+extern int memory_main(int argc, char **argv);
+extern int cat_main(int argc, char **argv);
+extern int login_main(int argc, char **argv);
+extern int id_main(int argc, char **argv);
 
 static prog_t cmdtab[] =
 {
@@ -18,4 +21,7 @@ static prog_t cmdtab[] =
 	{"ls", ls_main},
 	{"reboot", reboot_main},
 	{"memory", memory_main},
+	{"cat", cat_main},
+	{"login", login_main},
+	{"id", id_main},
 };
