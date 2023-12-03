@@ -19,10 +19,7 @@ cmdfs_init(void)
 	file_t *f, *root;
 	
 	if(cmdfs->state == READY)
-	{
-		
 		return cmdfs;
-	}
 		
 	path = "/cmd/";
 	cmdfs = (fs_t*)malloc(sizeof(fs_t));
