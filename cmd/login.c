@@ -76,11 +76,19 @@ login_main(int argc, char **argv)
 	i = 0;
 	p = malloc(PASSWD_MAX);
 	
-	while(i < PASSWD_MAX - 1)
+	while(1)
 	{
+		
 		c = ps2_getc();
 		
-		if(c == '\b')
+		if(c == '\r')
+		{
+			p[i] = '\0';
+			break;
+		}
+		else if(i >= PASSWD_MAX - 1) /* silently ignore */
+			continue;
+		else if(c == '\b')
 		{
 			if(i)
 				i--;
@@ -88,19 +96,14 @@ login_main(int argc, char **argv)
 			printf("\b");
 			continue;
 		}
-		else if(c == '\r')
-		{
-			p[i] = '\0';
-			break;
-		}
+
 		p[i] = c;
-		printf("*");
 		i++;
 	}
 	printf("\n");
 	
 
-	if(i > PASSWD_MAX)
+	if(i > PASSWD_MAX - 1)
 	{
 		printf("\noverflow!\n");
 		return OVERFLOW;
@@ -113,7 +116,8 @@ login_main(int argc, char **argv)
 	}
 	else
 	{
-		printf("%s", answers[(i) % (sizeof(answers) / sizeof(char*))]);
+		printf("%s", answers[i % (sizeof(answers) / sizeof(char*))]);
 		return AUTH_FAILED;
 	}
 }
+
