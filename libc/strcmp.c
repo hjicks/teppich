@@ -1,12 +1,14 @@
 int
 strcmp(char *s1, char *s2)
 {
-	unsigned int c1, c2;
+	char c1, c2;
 
-	for(;;) {
+	while(1)
+	{
 		c1 = *s1++;
 		c2 = *s2++;
-		if(c1 != c2) {
+		if(c1 != c2)
+		{
 			if(c1 > c2)
 				return 1;
 			return -1;
