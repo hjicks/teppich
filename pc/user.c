@@ -28,7 +28,7 @@ static int
 checkpass(char *s)
 {
 	if(strlen(s) < PASSWD_MAX)
-		return INVALID_PASSWORD;
+		return INVALID_PASSWD;
 
 	return OK;
 }
@@ -46,7 +46,7 @@ user_t*
 useradd(char *name, char *pass)
 {
 	ll_t *t;
-	user_t *u;
+	user_t *u, *lastuser;
 
 	if(checkname(name) != OK)
 		return nil;
@@ -63,6 +63,7 @@ useradd(char *name, char *pass)
 			return nil;
 		t = (ll_t*)t->next;
 	}
+	lastuser = u; /* needed for uid */
 
 	u = (user_t*)malloc(sizeof(user_t));
 	u->id = lastuser->id + 1;
