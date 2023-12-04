@@ -1,3 +1,6 @@
+#include <u.h>
+#include <libc.h>
+
 long
 adler32(char *data)
 {
