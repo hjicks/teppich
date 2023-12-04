@@ -4,7 +4,7 @@
 #include <bitmap.h>
 #include <com.h>
 
-consdev_t pccons = 
+const consdev_t pccons = 
 {
 	.name = "cons",
 	.init = vga_init,
@@ -15,7 +15,7 @@ consdev_t pccons =
 	.scroll = vga_scroll,
 };
 
-consdev_t bitcons =
+const consdev_t bitcons =
 {
 	.name = "bitcons",
 	.init = vga_init,
@@ -26,7 +26,7 @@ consdev_t bitcons =
 	.scroll = vga_scroll,
 };
 
-consdev_t serialcons =
+const consdev_t serialcons =
 {
 	.name = "serialcons",
 	.init = com_init,
@@ -35,6 +35,8 @@ consdev_t serialcons =
 	.getc = com_getc,
 	/* .scroll = nil */
 };
+
+consdev_t defcons = pccons;
 
 void
 cons_init(consdev_t cons)

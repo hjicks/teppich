@@ -11,9 +11,12 @@ typedef struct
 	void (*scroll)(int lines);
 }consdev_t;
 
-extern consdev_t pccons;
-extern consdev_t bitcons;
-extern consdev_t serialcons;
+extern const consdev_t pccons;
+extern const consdev_t bitcons;
+extern const consdev_t serialcons;
+
+/* points to default console */
+extern consdev_t defcons;
 
 void cons_init(consdev_t cons);
 void cons_clear(consdev_t cons, char c);
