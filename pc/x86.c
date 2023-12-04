@@ -1,28 +1,14 @@
 #include <u.h>
 
-inline void 
-instr(uint16 port, uint8* address, uint32 size)
-{
-	asm volatile("cld; rep insl" :
-		"=D" (address), "=c" (size) :
-		"d" (port), "0" (address), "1" (size) :
-		"memory", "cc");
+extern inline void
+outb(uint16 port, uint8 data)
+{ 
+	asm volatile("out %0, %1" : : "a" (data), "d" (port));
 }
 
-inline void
-sti(void)
-{
-	asm volatile("sti");
-}
-
-inline void 
-cli(void)
-{
-	asm volatile("cli");
-}
-
-inline void
-nop(void)
-{
-	asm volatile("nop");
+extern inline uint8
+inb(uint16 port) {
+	uint8 data;
+	asm volatile("in %1, %0" : "=a" (data) : "d" (port)); 
+	return data;
 }
