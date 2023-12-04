@@ -9,5 +9,5 @@
 #define VGAC 0x3d4
 #define VGAD 0x3d5
 
-extern inline uint8 inb(uint16 port);
-extern inline void outb(uint16 port, uint8 data);
+uint8 inb(uint16 port);
+void outb(uint16 port, uint8 data);
