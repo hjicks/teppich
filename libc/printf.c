@@ -1,31 +1,31 @@
 #include <u.h>
 #include <libc.h>
-//#include <vga.h>
+#include <cons.h>
 
-int
+static int
 print_char(int c)
 {
-	return vga_putc(c);
+	cons_putc(defcons, c);
+	return 1;
 }
 
-int
+static int
 print_str(char *str)
 {
-
-	vga_puts(str);
-
+	cons_write(defcons, str);
 	return strlen(str);
 }
 
-int
+static int
 print_digit(long num, int base)
 {
 	int count;
-	char* symbols = "0123456789abcdef";
+	char *d;
+	char *symbols = "0123456789abcdef";
 
 	if (num < 0)
 	{
-		vga_puts("-");
+		cons_write(defcons, "-");
 		return print_digit(-num, base) + 1;
 	}
 	else if (num < base)
@@ -40,7 +40,7 @@ print_digit(long num, int base)
 	
 }
 
-int
+static int
 print_format(char specifier, va_list ap)
 {
 	int count = 0;
@@ -59,7 +59,7 @@ print_format(char specifier, va_list ap)
 	case 'x':
 		count += print_digit((long)va_arg(ap, unsigned int), 16);
 	default:
-		count += vga_puts(specifier);
+		count += print_char(specifier);
 		break;
 	}
 
@@ -78,7 +78,7 @@ printf(const char* restrict format, ...)
 		if (*format == '%') 
 			count += print_format(*(++format), ap);
 		else
-			count += vga_putc(*format);
+			count += print_char(*format);
 		format++;
 	}
 
