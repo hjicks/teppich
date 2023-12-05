@@ -36,3 +36,10 @@ char* itoa(int num, char* str, int base);
 
 /* hash */
 long adler32(char *data);
+
+/* memory */
+void* malloc(uint16 size);
+void free(void *mem);
+
+/* sys */
+void panic(void);

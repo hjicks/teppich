@@ -50,6 +50,9 @@ L = \
 	libc/scanf.o\
 	libc/itoa.o\
 	libc/adler32.o\
+	libc/malloc.o\
+	libc/free.o\
+	libc/panic.o\
 	
 K = \
 	pc/boot.o\
