@@ -1,6 +1,6 @@
 #include <u.h>
+#include <libc.h>
 #include <err.h>
-#include <mem.h>
 
 int
 lladd(ll_t *last, void *data)

@@ -1,6 +1,7 @@
 #include <u.h>
+#include <libc.h>
 #include <err.h>
-#include <mem.h>
+
 
 /* deletes the next entry in the list */
 int
