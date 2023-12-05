@@ -1,6 +1,25 @@
 #include <u.h>
 #include <x86.h>
 #include <ps2.h>
+static char keymap[2][128] = 
+{
+	{
+		"\0\x1b""1234567890-=\b\t"
+		"qwertyuiop[]\r\0as"
+		"dfghjkl;'`\0\\zxcv"
+		"bnm,./\0*\0 \0\0\0\0\0\0"
+		"\0\0\0\0\0\0\0""789-456+1"
+		"230."
+	},
+	{
+		"\0\x1b""!@#$%^&*()_+\b\t"
+		"QWERTYUIOP{}\r\0AS"
+		"DFGHJKL:\"~\0|ZXCV"
+		"BNM<>?\0\0\0 \0\0\0\0\0\0"
+		"\0\0\0\0\0\0\0""789-456+1"
+		"230."
+	},
+};
 
 uint8
 ps2_read_status(void)
