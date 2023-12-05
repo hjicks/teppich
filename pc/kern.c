@@ -3,18 +3,8 @@
 #include <mem.h>
 #include <cons.h>
 #include <user.h>
-#include <x86.h>
 
 #include "../cmd/rc.h"
-
-/* abandon hope, all ye who enter here */
-void
-panic(void)
-{
-	cons_write(pccons, "PANIC!\n");
-	cons_write(serialcons, "PANIC!\n");
-	outb(KBC, 0xFE);
-}
 
 void
 kernel_main(void) 
