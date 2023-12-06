@@ -87,10 +87,6 @@ vga_putc(char c)
 		case '\t':
 			/* dynamic tab! */	
 			int dst = (vga_col % 8);
-			char *s;
-			s = malloc(10);
-			com_puts(itoa(dst, s, 10));
-			com_puts("\t");
 			for(int i = 0 ; i < dst ; i++)
 				vga_putc(' ');
 			return;
