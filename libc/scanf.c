@@ -1,13 +1,12 @@
 #include <u.h>
 #include <libc.h>
 #include <cons.h>
-#include <mem.h>
 
 static char*
 get_char()
 {
 	int i = 0;
-	char *buff = malloc(10), c;
+	char *buff, c;
 	while (1 == 1)
 	{
 		c = cons_read(defcons);
