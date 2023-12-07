@@ -94,11 +94,11 @@ getfs(char *path)
 	return nil;
 }
 
+/* works like basename -d, sorta */
 char*
 dirname(char *s, char c)
 {
 	int last;
-	char *t;
 	
 	last = 0;
 	for(int i = 0 ; i < strlen(s) ; i++)
@@ -109,6 +109,6 @@ dirname(char *s, char c)
 
 	if(last == 0)
 		return nil;
-	t = (char*)malloc(last+1);
+
 	return strncpy(s, s, last);
 }
