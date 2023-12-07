@@ -50,9 +50,6 @@ void
 vga_scroll()
 {
 	uint16 c;
-	char *s;
-	
-	s = malloc(10);
 	c = vga_char(' ', vga_color);
 
 	for(int i = 0 ; i < VGA_WIDTH * VGA_HEIGHT ; i++)
