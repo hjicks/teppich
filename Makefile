@@ -5,8 +5,8 @@ CC := $(TARG)-gcc-11
 LD := $(TARG)-ld.bfd
 AS := $(TARG)-as
 
-CFLAGS +=-O0 -g -nostdinc -I./include/ -ffreestanding -fcommon -fno-pie
-ASFLAGS += -g
+CFLAGS +=-O0 -nostdinc -Iinclude/ -ffreestanding -fcommon -fno-pie
+ASFLAGS +=
 LDFLAGS += -T linker.ld -z noexecstack
 
 QEMU ?= qemu-system-i386
