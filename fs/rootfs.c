@@ -15,6 +15,7 @@ rootfs_init(void)
 	char* path;
 	ll_t *ulist, *flist, *t;
 	file_t *f, *root;
+	user_t *u;
 
 	if(rootfs->state == READY)
 		return rootfs;
@@ -25,17 +26,17 @@ rootfs_init(void)
 	ulist = malloc(sizeof(ll_t*));
 	flist = malloc(sizeof(ll_t*));
 
-	lladd(ulist, &adam);
+	u = getadam();
+	lladd(ulist, u);
 	
 	rootfs->fid = 1;
 	rootfs->state = READY;
-	/* cmdfs.type = INTERFACE; */
 	rootfs->users = ulist;
 	
 	root->fid = 0;
 	root->size = 0;
 
-	root->owner = adam.id;
+	root->owner = u->uid;
 	root->perms = 0444; /* u=r, o=r */
 	
 	root->path = "/";
@@ -57,7 +58,7 @@ rootfs_init(void)
 		f->fid = rootfs->fid++;
 		f->size = 0;
 		
-		f->owner = adam.id;
+		f->owner = u->uid;
 		f->perms = 0444;
 
 		f->name = fstab[i].name;

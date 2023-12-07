@@ -1,8 +1,6 @@
 #include <u.h>
 #include <libc.h>
 
-#include <mem.h>
-
 #include <vfs.h>
 #include <user.h>
 #include "../cmd/rc.h"
@@ -17,6 +15,7 @@ cmdfs_init(void)
 	int i = 0;
 	ll_t *ulist, *flist, *t;
 	file_t *f, *root;
+	user_t *u;
 	
 	if(cmdfs->state == READY)
 		return cmdfs;
@@ -27,7 +26,8 @@ cmdfs_init(void)
 	ulist = malloc(sizeof(ll_t*));
 	flist = malloc(sizeof(ll_t*));
 
-	lladd(ulist, &adam);
+	u = getadam();
+	lladd(ulist, u->name);
 	
 	cmdfs->fid = 1;
 	cmdfs->state = READY;
@@ -42,7 +42,7 @@ cmdfs_init(void)
 	root->fid = 0;
 	root->size = 0;
 	
-	root->owner = adam.id;
+	root->owner = u->uid;
 	root->perms = 0444; /* u=r, o=r */
 	
 	root->path = "/";
@@ -59,7 +59,7 @@ cmdfs_init(void)
 		f->fid = cmdfs->fid++;
 		f->size = 0; /* that is a virtual file */
 		
-		f->owner = adam.id;
+		f->owner = u->uid;
 		f->perms = 0555;
 		
 		f->name = cmdtab[i].name;

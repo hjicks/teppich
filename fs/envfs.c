@@ -6,6 +6,7 @@
 #include <user.h>
 
 static fs_t *envfs;
+static user_t *cuser;
 
 fs_t*
 envfs_init(void)
@@ -14,7 +15,8 @@ envfs_init(void)
 	int i = 0;
 	ll_t *ulist, *flist;
 	file_t *root;
-	
+
+	/* TODO: check if user has changed, if yes. create a new envfs */
 	if(envfs->state == READY)
 		return envfs;
 		
@@ -23,7 +25,8 @@ envfs_init(void)
 	ulist = malloc(sizeof(ll_t*));
 	flist = malloc(sizeof(ll_t*));
 
-	lladd(ulist, &cuser);
+	cuser = getcuser();
+	lladd(ulist, cuser);
 	
 	envfs->fid = 1;
 	envfs->state = READY;
@@ -34,8 +37,8 @@ envfs_init(void)
 	
 	root->fid = 0;
 	root->size = 0;
-	
-	root->owner = cuser.id;
+
+	root->owner = cuser->uid;
 	root->perms = 0444; /* u=r, o=r */
 	
 	root->path = malloc(sizeof(PATH_MAX));
@@ -74,7 +77,7 @@ envfs_create(char *name)
 	f->path = malloc(sizeof(PATH_MAX));
 	strncpy(f->path, path, strlen(path));
 
-	f->owner = cuser.id;
+	f->owner = cuser->uid;
 
 	/* t now should point to last item in fs->files */
 	lladd(t, f);
