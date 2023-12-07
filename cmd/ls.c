@@ -6,7 +6,7 @@
 static int
 usage()
 {
-	printf("ls: usage: ls [-l] dir\n");
+	printf("usage: ls [-l] dir\n");
 	return USAGE;
 }
 
@@ -58,7 +58,7 @@ ls_main(int argc, char **argv)
 	}
 	if(argc != 2)
 		return usage();
-	
+
 	fs = getfs(argv[1]);
 	if(fs == nil)
 	{
