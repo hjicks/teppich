@@ -1,4 +1,9 @@
 #pragma once
+typedef struct
+{
+	char *name;
+	int (*main)(int argc, char **argv);
+}prog_t;
 
 extern void rc_main(void);
 extern int echo_main(int argc, char **argv);
