@@ -1,15 +1,17 @@
 #pragma once
 #define PASSWD_MAX 16
+#define USERNAME_MAX 8
 
 typedef struct
 {
-	uint8 id;
+	uint8 uid;
 	char *name;
 	long pass; /* adler32 hash */
 }user_t;
 
-extern ll_t *users;
-extern user_t cuser;
-extern user_t adam;
-
 void users_init(void);
+int getuser(char *username);
+char* getpass(char *prompt, char *user);
+int setcuser(uint8 uid, char *pass);
+user_t* getcuser(void);
+user_t* getadam(void);
