@@ -1,12 +1,14 @@
 #include <u.h>
 #include <libc.h>
 #include <ps2.h>
-#include <mem.h>
 #include <err.h>
 #include <user.h>
 #include "rc.h"
 
 static char *cwd;
+static char *username;
+static user_t *cuser;
+
 
 int
 exec(int argc, char* argv0, char **argv)
@@ -67,8 +69,9 @@ rc_main(void)
 	cwd = "/";
 	i = 0;
 	cmd = malloc(25);
-	
-	printf("%s> ", cuser.name);
+
+	cuser = getcuser();
+	printf("%s> ", cuser->name);
 	while(1)
 	{
 		c = ps2_getc();
@@ -84,7 +87,7 @@ rc_main(void)
 			memset(cmd, '\0', 25);
 			i = 0;
 
-			printf("%s> ", cuser.name);
+			printf("%s> ", cuser->name);
 		}
 		else if(c != '\b')
 		{
@@ -99,4 +102,5 @@ rc_main(void)
 			cmd[i] = '\0';
 		}
 	}
+	free(cuser);
 }
