@@ -1,8 +1,14 @@
 #include <u.h>
 #include <libc.h>
 #include <err.h>
-#include <mem.h>
 #include <vfs.h>
+
+static int
+usage()
+{
+	printf("ls: usage: ls [-l] dir\n");
+	return USAGE;
+}
 
 char*
 permtoletter(uint16 perms)
@@ -48,7 +54,10 @@ ls_main(int argc, char **argv)
 	{
 		lflag = 1;
 		argv++;
+		argc--;
 	}
+	if(argc != 2)
+		return usage();
 	
 	fs = getfs(argv[1]);
 	if(fs == nil)
@@ -83,7 +92,6 @@ ls_main(int argc, char **argv)
 		}
 		else
 		{
-
 			printf("%s", f->path);
 			printf("%s\n", f->name);
 		}
