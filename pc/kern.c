@@ -3,6 +3,7 @@
 #include <mem.h>
 #include <cons.h>
 #include <user.h>
+#include <err.h>
 
 #include "../cmd/rc.h"
 
@@ -15,7 +16,12 @@ kernel_main(void)
 	cons_init(pccons);
 	cons_write(bitcons, "Teppich");
 	users_init();
-	cuser = adam;
 
-	rc_main();
+	while(1)
+	{
+		if(login_main(1, nil) != OK)
+			continue;
+
+		rc_main();
+	}
 }
