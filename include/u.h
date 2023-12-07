@@ -21,9 +21,4 @@ typedef struct
 	void *next;
 }ll_t;
 
-typedef struct
-{
-	char *name;
-	int (*main)(int argc, char **argv);
-}prog_t;
 
