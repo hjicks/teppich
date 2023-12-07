@@ -34,7 +34,7 @@ vga_init(void)
 {
 	vga_row = 0;
 	vga_col = 0;
-	vga_color = vga_gencolor(WHITE, BLACK);
+	vga_color = vga_gencolor(WHITE, BLUE);
 	vga_buf = (uint16*)VGA_MEM;
 	vga_clear(' ');
 }
@@ -47,21 +47,21 @@ vga_writeto(char c, uint8 color, int x, int y)
 }
 
 void
-vga_scroll(int lines)
+vga_scroll()
 {
-	int index;
+	uint16 c;
+	char *s;
+	
+	s = malloc(10);
+	c = vga_char(' ', vga_color);
 
-	index = 0;
-	while(index < VGA_WIDTH * (VGA_HEIGHT - lines))
-	{
-		vga_buf[index] = vga_buf[index + VGA_WIDTH * lines];
-		index++;
-	}
+	for(int i = 0 ; i < VGA_WIDTH * VGA_HEIGHT ; i++)
+		vga_buf[i] = vga_buf[i + VGA_WIDTH];
+	
 	/* clear last line */
-	while(index < VGA_WIDTH * VGA_HEIGHT)
+	for(int i = VGA_WIDTH * (VGA_HEIGHT - 1) ; i < VGA_WIDTH * VGA_HEIGHT ; i++)
 	{
-		vga_buf[index] = vga_char(' ', vga_color);
-		index++;
+		vga_buf[i] = c;
 	}
 }
 
@@ -69,8 +69,8 @@ void
 vga_nl(void)
 {
 	vga_col = 0; /* cr */
-	if(vga_row == VGA_HEIGHT-1)
-		vga_scroll(1);
+	if(vga_row == VGA_HEIGHT - 1)
+		vga_scroll();
 	else
 		vga_row++;
 }

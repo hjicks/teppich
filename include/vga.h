@@ -34,7 +34,7 @@ enum {
 void vga_clear(char c);
 void vga_init(void);
 void vga_writeto(char c, uint8 color, int x, int y);
-void vga_scroll(int lines);
+void vga_scroll(void);
 void vga_nl(void);
 void vga_putc(char c);
 void vga_puts(char *s);
