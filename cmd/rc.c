@@ -14,7 +14,7 @@ exec(int argc, char* argv0, char **argv)
 	int status;
 
 	status = NO_SUCH_CMD;
-	for(int i = 0 ; i < sizeof(cmdtab) ; i++)
+	for(int i = 0 ; i < (sizeof(cmdtab) / sizeof(prog_t)) ; i++)
 	{
 		if(!strcmp(argv0, cmdtab[i].name))
 			status = cmdtab[i].main(argc, argv);
@@ -37,10 +37,13 @@ call(char *cmd)
 	check for nil pointers */
 	
 	argv0 = strcntok(cmd, ' ', 0);
-	
+
 	if(argv0 == nil)
 	{
-		argv0 = strdup(cmd); /* it still may be nil */
+		argv0 = strdup(cmd);
+		if(argv0 == nil)
+			return OK;
+
 		argc = 0;
 		/* shouldn't we do something regarding argv here? one wonders */
 	}
@@ -83,9 +86,6 @@ rc_main(void)
 
 			printf("%s> ", cuser.name);
 		}
-		/* ignore spaces as first character and ignore more than one space */
-		else if((c == ' ') && (i == 0 || cmd[i - 1] == ' '))
-			continue;
 		else if(c != '\b')
 		{
 			cmd[i] = c;
