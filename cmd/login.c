@@ -6,7 +6,7 @@
 
 #include <mem.h>
 
-char answers[32][256] =
+char answers[20][256] =
 {
 	"Authtication failure\n",
 
@@ -20,7 +20,7 @@ char answers[32][256] =
 	"Yawn...\n",
 	"Did you expected me to accept this?\n",
 	"Segmention fault\n",
-	"Segmention fault (core dumped)\n"
+	"Segmention fault (core dumped)\n",
 	"Divison by zero\n",
 	"General protection fault\n",
 	"login 6817489: suicide: invalid address 0x0/0 in sys call pc=0x40cf\n",
@@ -38,86 +38,48 @@ char answers[32][256] =
 static int
 usage()
 {
-	printf("usage: login username\n");
+	printf("usage: login [username]\n");
 	return USAGE;
-}
-
-static int
-checkpass(char *pass, user_t *u)
-{
-	if(u != nil && u->pass == adler32(pass))
-		return OK;
-	return INCORRECT_PASSWD;
 }
 
 int
 login_main(int argc, char **argv)
 {
-	int i;
-	char c, *p;
+	int uid;
+	int status;
+	int a; /* answer */
+	char *username, *pass;
 	ll_t *t;
-	user_t *u;
 
 
-	if(argc != 2)
+	if(argc > 2)
 		return usage();
 
-	u = nil;
-	t = users;
-	/* search for user */
-	while(t != nil)
+	username = malloc(USERNAME_MAX);
+	if(argc == 1)
 	{
-		u = (user_t*)t->val;
-		if(!strcmp(u->name, argv[1]))
-			break;
-		t = (ll_t*)t->next;
-	}
-	printf("Password: ");
-	i = 0;
-	p = malloc(PASSWD_MAX);
-	
-	while(1)
-	{
-		
-		c = ps2_getc();
-		
-		if(c == '\r')
-		{
-			p[i] = '\0';
-			break;
-		}
-		else if(i >= PASSWD_MAX - 1) /* silently ignore */
-			continue;
-		else if(c == '\b')
-		{
-			if(i)
-				i--;
-			p[i] = '\0';
-			printf("\b");
-			continue;
-		}
-
-		p[i] = c;
-		i++;
-	}
-	printf("\n");
-	
-
-	if(i > PASSWD_MAX - 1)
-	{
-		printf("\noverflow!\n");
-		return OVERFLOW;
-	}
-
-	if(checkpass(p, u) == OK)
-	{
-		cuser = *u;
-		return OK;
+		printf("Username: ");
+		scanf("%s", &username);
 	}
 	else
+		strncpy(username, argv[1], USERNAME_MAX);
+	
+	uid = getuser(username); 
+	pass = malloc(PASSWD_MAX);
+	getpass("Password: ", pass);
+
+	status = setcuser(uid, pass);
+
+	/* never is too late to mock your users */
+	a = (strlen(username) * (strlen(pass) * pass[strlen(pass-1)]) % (sizeof(answers) / sizeof(*answers)));
+	free(pass);
+	free(username);
+
+	if(status != OK)
 	{
-		printf("%s", answers[i % (sizeof(answers) / sizeof(char*))]);
+		printf("%s", answers[a]);
 		return AUTH_FAILED;
 	}
+	return OK;
 }
 
