@@ -5,7 +5,7 @@
 #include <err.h>
 
 int
-memory_main(int argc, char **argv, char *cwd)
+memory_main(int argc, char **argv)
 {
 	int free, taken;
 
