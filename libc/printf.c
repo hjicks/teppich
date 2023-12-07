@@ -47,20 +47,22 @@ print_format(char specifier, va_list ap)
 
 	switch (specifier)
 	{
-	case 'c':
-		count += print_char(va_arg(ap, int));	// Type promotion
-		break;
-	case 's':
-		count += print_str(va_arg(ap, char*));
-		break;
-	case 'd':
-		count += print_digit((long)va_arg(ap, int), 10);
-		break;
-	case 'x':
-		count += print_digit((long)va_arg(ap, unsigned int), 16);
-	default:
-		count += print_char(specifier);
-		break;
+		case 'c':
+			count += print_char(va_arg(ap, int));	// Type promotion
+			break;
+		case 's':
+			count += print_str(va_arg(ap, char*));
+			break;
+		case 'd':
+			count += print_digit((long)va_arg(ap, int), 10);
+			break;
+		case 'x':
+			print_str("0x");
+			count += print_digit((long)va_arg(ap, unsigned int), 16);
+			break;
+		default:
+			count += print_char(specifier);
+			break;
 	}
 
 	return count;
