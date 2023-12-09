@@ -30,6 +30,8 @@ C = \
 	cmd/cat.o\
 	cmd/login.o\
 	cmd/id.o\
+	cmd/wc.o\
+	cmd/od.o\
 
 L = \
 	libc/strlen.o\

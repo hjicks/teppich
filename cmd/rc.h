@@ -16,6 +16,8 @@ extern int memory_main(int argc, char **argv);
 extern int cat_main(int argc, char **argv);
 extern int login_main(int argc, char **argv);
 extern int id_main(int argc, char **argv);
+extern int od_main(int argc, char **argv);
+extern int wc_main(int argc, char **argv);
 
 static prog_t cmdtab[] =
 {
@@ -29,4 +31,6 @@ static prog_t cmdtab[] =
 	{"cat", cat_main},
 	{"login", login_main},
 	{"id", id_main},
+	{"od", od_main},
+	{"wc", wc_main},
 };
