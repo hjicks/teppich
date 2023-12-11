@@ -10,7 +10,7 @@ currently, notable features include:
 5. basic user mangment
 6. and more...
 
-most of system details were named and tries to behave like plan 9, as a nod to their great OS.
+most of system details were named after and tries to behave like plan 9, as a nod to their great OS.
 
 this project wouldn't be possible without help of my friends "mh" and "de",
 i also would like to thank [bxhh7](https://github.com/bxhh7) and mahdi, both giving guidance while designing this system.
@@ -20,7 +20,7 @@ serial driver `(pc/com.c)`,
 inline asm `inb()` and `outb()`.
 
 the following parts were based on code on Plan9front:
-`strtol()`, `strncpy`, `strncat`, `memcpy`, `strcmp`.
+`strtol()`, `strncpy()`, `strncat()`, `memcpy()`, `strcmp()`.
 
 
 some of code were based on OSdev's barebones:
